@@ -21,9 +21,7 @@ angular.module('loomioApp').directive 'attachmentForm', ->
       $scope.currentUpload.abort() if $scope.currentUpload
 
     $scope.success = (response) ->
-      data = response.data || response
-      _.each data.attachments, (attachment) ->
-        $scope.model.newAttachmentIds.push(attachment.id)
+      $scope.$emit 'attachmentsAdded', response.data.attachments
 
     $scope.failure = (response) ->
       $scope.model.setErrors(response.data.errors)
